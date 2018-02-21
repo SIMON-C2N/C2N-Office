@@ -1,0 +1,30 @@
+.students-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2.55%;
+    overflow: scroll;
+    max-height: 63vh;
+  }
+
+  .mat-cell, .mat-header-cell {
+    text-align: center;
+  }
+
+  .material-icons {
+    cursor: pointer;
+  }
+
+  .addNewEnquiry{
+    float: right;
+    top: auto;
+    right: 3%;
+    bottom: 5%;
+    left: auto;
+    position: sticky;
+  }
+
+  .mat-header-row {
+    position: sticky;
+    top: 0;
+    background: white;
+  }

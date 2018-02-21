@@ -1,0 +1,89 @@
+<div>
+  <h1 mat-dialog-title>Student Info</h1>
+  <div mat-dialog-content>
+    <table>
+      <thead>
+        <td>
+          Personal Info
+        </td>
+        <td>
+          Batch Details
+        </td>
+      </thead>
+      <br/>
+      <tbody>
+        <td>
+          <table>
+            <tr>
+              <td>
+                <mat-form-field>
+                  <input matInput placeholder="Firstname" value="{{data.firstname}}">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field>
+                  <input matInput placeholder="Lastname" value="{{data.lastname}}">
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <mat-form-field>
+                  <input matInput placeholder="Email ID" type="email" value="{{data.emailId}}">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field>
+                  <input matInput placeholder="Mobile No" value="{{data.mobileNo}}">
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <mat-form-field>
+                  <input matInput [matDatepicker]="doj" placeholder="DOJ" [(ngModel)]="data.doj">
+                  <mat-datepicker-toggle matSuffix [for]="doj"></mat-datepicker-toggle>
+                  <mat-datepicker #doj></mat-datepicker>
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field>
+                  <mat-select placeholder="Referred By">
+                    <mat-option value="option">Option</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+            </tr>
+            <tr>
+              <td>
+                <mat-checkbox color="primary">Is Lead ?</mat-checkbox>
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td>
+          <mat-table #table [dataSource]="dataSource">
+
+            <ng-container matColumnDef="{{col}}" *ngFor="let col of course_columns">
+              <mat-header-cell *matHeaderCellDef> {{getColumnName(col)}} </mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{row[col]}} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="course_columns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: course_columns;"></mat-row>
+          </mat-table>
+        </td>
+      </tbody>
+    </table>
+  </div>
+  <div style="text-align: center;">
+    <button mat-fab color="primary">
+      <i class="material-icons">done</i>
+    </button>
+    <button mat-fab color="primary" mat-dialog-close style="margin-left:5%;">
+      <i class="material-icons">clear</i>
+    </button>
+  </div>
+</div>

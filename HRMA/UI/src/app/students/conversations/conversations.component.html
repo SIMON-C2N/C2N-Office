@@ -1,0 +1,22 @@
+<h3>STUDENTS CONVERSATIONS</h3>
+<div style="float:right;margin-top:-50px;">
+  <mat-form-field style="width:200%;float:right;margin-right:4%;">
+    <input matInput type="search" placeholder="Search">
+  </mat-form-field>
+</div>
+<div class="students-container">
+  <mat-table #table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="{{col}}" *ngFor="let col of student_columns">
+      <div>
+        <mat-header-cell *matHeaderCellDef> {{getColumnName(col)}} </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row[col]}} </mat-cell>
+      </div>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="student_columns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: student_columns;" (click)="openConversations(row);"></mat-row>
+  </mat-table>
+</div>
+<mat-paginator style="padding-right:10%;" #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+</mat-paginator>

@@ -1,0 +1,45 @@
+<h3>STUDENTS DETAILS</h3>
+<div style="float:right;margin-top:-50px;">
+  <mat-form-field style="width:200%;float:right;margin-right:4%;">
+    <input matInput type="search" placeholder="Search">
+  </mat-form-field>
+</div>
+<div class="students-container">
+  <mat-table #table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="{{col}}" *ngFor="let col of student_columns">
+      <div *ngIf="(col!='add_batch') && (col!='add_conversation') && (col!='view') && (col!='referredBy')">
+        <mat-header-cell *matHeaderCellDef> {{getColumnName(col)}} </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row[col]}} </mat-cell>
+      </div>
+      <div *ngIf="col=='add_batch'">
+        <mat-header-cell *matHeaderCellDef>{{getColumnName(col)}}</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <i class="material-icons" (click)="addBatch(row);" matTooltip="add batch">add</i>
+        </mat-cell>
+      </div>
+      <div *ngIf="col=='add_conversation'">
+        <mat-header-cell *matHeaderCellDef>{{getColumnName(col)}}</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <i class="material-icons" (click)="addConversation(row);" matTooltip="add conversation">add</i>
+        </mat-cell>
+      </div>
+      <div *ngIf="col=='view'">
+        <mat-header-cell *matHeaderCellDef>{{getColumnName(col)}}</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <i class="material-icons" (click)="updateStudent(row);" matTooltip="page view">pageview</i>
+        </mat-cell>
+      </div>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="student_columns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: student_columns;"></mat-row>
+  </mat-table>
+</div>
+<mat-paginator style="padding-right:10%;" #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+</mat-paginator>
+<div class="addNewEnquiry">
+  <button mat-fab color="primary" (click)="openEnquiryForm();">
+    <i class="material-icons" matTooltip="add new enquiry">add</i>
+  </button>
+</div>

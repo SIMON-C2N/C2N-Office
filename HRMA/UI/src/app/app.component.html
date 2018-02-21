@@ -1,0 +1,36 @@
+<div>
+<mat-toolbar color="primary" class="header">
+  <mat-toolbar-row>
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <img src="../assets/c2n.jpg" style="height: 30%;border-radius: 2px;margin-top:2px;" />
+    <span style="flex:1 1 auto;"></span>
+    <a href="#"><i class="material-icons">notifications</i></a>
+    <a href="#"><i class="material-icons">power_settings_new</i></a>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-sidenav-container fullscreen style="top: 50px !important;">
+  <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches">
+    <mat-nav-list>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header routerLink="students">
+            <mat-panel-title>
+              <i class="material-icons">group</i>STUDENTS
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list role="list">
+            <mat-list-item role="listitem" routerLink="students/conversations">Conversations</mat-list-item>
+            <mat-list-item role="listitem" routerLink="students/payment">Payment History</mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

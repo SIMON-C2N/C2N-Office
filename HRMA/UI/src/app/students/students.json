@@ -1,0 +1,28 @@
+[
+    {
+        "id": "1",
+        "firstname": "Simon",
+        "lastname": "Aluvala",
+        "mobileNo": "9848012345",
+        "emailId": "abc@a.in",
+        "doj": "20-01-2018",
+        "course_details": [
+            {
+                "courseName": "Salesforce",
+                "course_duration": "30",
+                "course_starting_date": "22-01-2018",
+                "timings": "10 AM",
+                "no_of_days": "30",
+                "no_of_absences": "0",
+                "finalizedFee": "20000",
+                "paidAmount": "20000",
+                "isBatchCompleted":"N",
+                "management": {
+                    "trainer_name": "Srikanth",
+                    "referredBy": "Ramu"
+                }
+            }
+        ]
+    }
+]
+["id","firstname","lastname","mobileNo","emailId","doj","courseName","course_duration","course_starting_date","timings","no_of_days","no_of_absences","finalizedFee","paidAmount","isBatchCompleted","trainer_name","referredBy"]

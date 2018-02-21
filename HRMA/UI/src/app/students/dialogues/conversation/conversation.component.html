@@ -1,0 +1,51 @@
+<div style="float: right;">
+  <button mat-fab color="primary">
+    <i class="material-icons">send</i>
+  </button>
+</div>
+<div>
+  <h2 mat-dialog-title>Add Conversation</h2>
+  <div>
+    <br/>
+    <br/>
+    <table>
+      <tr>
+        <td>Name&nbsp;&nbsp;:&nbsp;
+          <b>{{data.firstname+' '+data.lastname}}</b>
+        </td>
+      </tr>
+      <br/>
+      <tr>
+        <td>
+          <mat-checkbox color="primary" [(ngModel)]="disabled">Is conversation postponed ?</mat-checkbox>
+        </td>
+      </tr>
+      <div *ngIf="disabled">
+        <br/>
+        <tr>
+          <td>
+            <mat-form-field>
+              <input matInput [matDatepicker]="picker" placeholder="Postpone date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </td>
+        </tr>
+      </div>
+      <br/>
+      <tr>
+        <td>
+          <mat-checkbox color="primary">Is Lead ?</mat-checkbox>
+        </td>
+      </tr>
+      <br/>
+      <tr>
+        <td>
+          <mat-form-field style="width:150%;">
+            <textarea matInput placeholder="conversation message" rows="1"></textarea>
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

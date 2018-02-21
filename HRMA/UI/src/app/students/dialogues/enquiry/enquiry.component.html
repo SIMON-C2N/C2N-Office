@@ -1,0 +1,61 @@
+<div>
+  <h1 mat-dialog-title>Enquiry Form</h1>
+  <div mat-dialog-content>
+    <table>
+      <tr>
+        <td>
+          <mat-form-field>
+            <input matInput placeholder="Firstname">
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <input matInput placeholder="Lastname">
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <input matInput placeholder="Email ID" type="email">
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <input matInput placeholder="Mobile No">
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <input matInput [matDatepicker]="doj" placeholder="DOJ">
+            <mat-datepicker-toggle matSuffix [for]="doj"></mat-datepicker-toggle>
+            <mat-datepicker #doj></mat-datepicker>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <mat-select placeholder="Referred By">
+              <mat-option value="option">Option</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div style="text-align: center;">
+    <button mat-fab color="primary">
+      <i class="material-icons">done</i>
+    </button>
+    <button mat-fab color="primary" mat-dialog-close style="margin-left:5%;">
+      <i class="material-icons">clear</i>
+    </button>
+  </div>
+</div>

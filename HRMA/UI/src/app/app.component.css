@@ -1,0 +1,37 @@
+.mat-toolbar-row, .mat-toolbar-single-row {
+    align-items: center;
+    margin-top: 5px;
+}
+
+.mat-sidenav{
+    width: 20% !important;
+    box-shadow: 0 4px 8px 0;
+}
+
+.material-icons{
+    padding: 0 7px;
+}
+
+.mat-nav-list{
+    margin-top: -7px;
+}
+
+::ng-deep .mat-expansion-panel-body {
+    margin-top: -18px;
+}
+
+.mat-drawer-container[fullscreen]{
+}
+
+a:-webkit-any-link {
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.header{
+    display: flex;
+    margin-top: -1%;
+    margin-left: -1%;
+    width: 101%;
+}
