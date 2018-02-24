@@ -1,5 +1,5 @@
 <div style="float: right;">
-  <button mat-fab color="primary">
+  <button mat-fab color="primary" [disabled]="!batchForm.valid" (click)="assignBatchToStudent();" mat-dialog-close>
     <i class="material-icons">send</i>
   </button>
 </div>
@@ -7,20 +7,41 @@
   <h2 mat-dialog-title>Add Batch</h2>
   <br/>
   <br/>
-  <div>
+  <div novalidate [formGroup]="batchForm">
     <table>
       <tr>
         <td>Name&nbsp;&nbsp;:&nbsp;
-          <b>{{data.firstname+' '+data.lastname}}</b>
+          <b>{{data.firstName+' '+data.lastName}}</b>
+        </td>
+      </tr>
+      <br/>
+      <tr>
+        <td class="form-group">
+          <div>
+            <input type="hidden" value="{{data.id}}" class="form-control" formControlName="studentId">
+          </div>
         </td>
       </tr>
       <tr>
-        <td>
+        <td class="form-group">
           <mat-form-field>
-            <mat-select placeholder="Select Batch">
-              <mat-option [value]="001">BATCH001
-              </mat-option>
+            <mat-select placeholder="Select Batch" class="form-control" formControlName="batchId" required>
+              <mat-option *ngFor="let b of batches" [value]="b.batchId">{{b.batch}}</mat-option>
             </mat-select>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td class="form-group">
+          <mat-form-field>
+            <input matInput class="form-control" placeholder="Finalized Fee" formControlName="finalizedFee" required>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td class="form-group">
+          <mat-form-field>
+            <input matInput class="form-control" placeholder="Paid Amount" formControlName="paidAmount" required>
           </mat-form-field>
         </td>
       </tr>

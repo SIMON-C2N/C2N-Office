@@ -7,6 +7,7 @@ import { ConversationComponent } from "./dialogues/conversation/conversation.com
 import { StudentUpdateComponent } from "./dialogues/student-update/student-update.component";
 
 import { StudentService } from "./services/student.service";
+import { EmployeesService } from '../employees/services/employees.service';
 
 @Component({
   selector: 'app-students',
@@ -16,26 +17,30 @@ import { StudentService } from "./services/student.service";
 export class StudentsComponent implements OnInit {
 
   displayedColumns = ['position', 'name', 'weight', 'symbol'];
-  student_columns = ["id", "firstName", "lastName", "mobileNo", "emailId", "doj", "isLead", "referredBy", "referrerName", "add_batch", "add_conversation", "view"];
-  dataSource;
+  student_columns = ["id", "firstName", "lastName", "mobileNo", "emailId", "doj", "isLead", "referrerName", "add_batch", "add_conversation", "view"];
+  dataSource = new MatTableDataSource<Student>([]);;
 
-  constructor(public dialog: MatDialog, public _studentService: StudentService) { }
+  constructor(public dialog: MatDialog, public _studentService: StudentService, public _employeeService: EmployeesService) { }
 
   ngOnInit() {
     this.findAllStudentsWithReferrer();
   }
 
   findAllStudentsWithReferrer() {
-    let waitForSummary = setTimeout(() => {
-      this._studentService.findAllByReferrers()
-        .subscribe(
-          response => {
-            if (response.data != undefined && response.data.length != 0) {
-              this.dataSource = new MatTableDataSource<Element>(response.data);
-            }
-          });
-    }, 100);
+    this._studentService.findAllByReferrers()
+      .subscribe(
+        response => {
+          if (response != undefined && response.length != 0) {
+            this.dataSource = new MatTableDataSource<Student>(response);
+          }
+        });
 
+  }
+
+  findAllEmployees() {
+    this._employeeService.findAll().subscribe(response => {
+      console.log(response);
+    });
   }
 
   getColumnName(columnKey: string): string {

@@ -7,8 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "students_by_referrer")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class StudentsByReferrer implements java.io.Serializable {
 
 	private static final long serialVersionUID = 2237641995594776139L;
@@ -19,6 +23,7 @@ public class StudentsByReferrer implements java.io.Serializable {
 	private String emailId;
 	private String mobileNo;
 	private byte isLead;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date doj;
 	private int referredBy;
 	private String referrerName;

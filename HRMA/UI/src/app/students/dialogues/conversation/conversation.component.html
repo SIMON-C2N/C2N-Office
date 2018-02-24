@@ -1,9 +1,9 @@
 <div style="float: right;">
-  <button mat-fab color="primary">
+  <button mat-fab color="primary" [disabled]="!conversationForm.valid" (click)="updateConversation();" mat-dialog-close>
     <i class="material-icons">send</i>
   </button>
 </div>
-<div>
+<div novalidate [formGroup]="conversationForm">
   <h2 mat-dialog-title>Add Conversation</h2>
   <div>
     <br/>
@@ -11,21 +11,28 @@
     <table>
       <tr>
         <td>Name&nbsp;&nbsp;:&nbsp;
-          <b>{{data.firstname+' '+data.lastname}}</b>
+          <b>{{data.firstName+' '+data.lastName}}</b>
         </td>
       </tr>
       <br/>
       <tr>
-        <td>
-          <mat-checkbox color="primary" [(ngModel)]="disabled">Is conversation postponed ?</mat-checkbox>
+        <td class="form-group">
+          <div>
+            <input type="hidden" value="{{data.id}}" class="form-control" formControlName="studentId">
+          </div>
         </td>
       </tr>
-      <div *ngIf="disabled">
+      <tr>
+        <td>
+          <mat-checkbox color="primary" class="form-control" formControlName="isEnabled">Is conversation postponed ?</mat-checkbox>
+        </td>
+      </tr>
+      <div *ngIf="conversationForm.value.isEnabled">
         <br/>
         <tr>
-          <td>
+          <td class="form-group">
             <mat-form-field>
-              <input matInput [matDatepicker]="picker" placeholder="Postpone date">
+              <input matInput [matDatepicker]="picker" placeholder="Postpone date" class="form-control" formControlName="postdate">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
@@ -34,15 +41,15 @@
       </div>
       <br/>
       <tr>
-        <td>
-          <mat-checkbox color="primary">Is Lead ?</mat-checkbox>
+        <td class="form-group">
+          <mat-checkbox color="primary" class="form-control" formControlName="isLead">Is Lead ?</mat-checkbox>
         </td>
       </tr>
       <br/>
       <tr>
-        <td>
+        <td class="form-group">
           <mat-form-field style="width:150%;">
-            <textarea matInput placeholder="conversation message" rows="1"></textarea>
+            <textarea matInput placeholder="conversation message" rows="1" class="form-control" formControlName="conversation" required></textarea>
           </mat-form-field>
         </td>
       </tr>

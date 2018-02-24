@@ -1,57 +1,59 @@
 <div>
   <h1 mat-dialog-title>Enquiry Form</h1>
   <div mat-dialog-content>
-    <table>
-      <tr>
-        <td>
-          <mat-form-field>
-            <input matInput placeholder="Firstname">
-          </mat-form-field>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <mat-form-field>
-            <input matInput placeholder="Lastname">
-          </mat-form-field>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <mat-form-field>
-            <input matInput placeholder="Email ID" type="email">
-          </mat-form-field>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <mat-form-field>
-            <input matInput placeholder="Mobile No">
-          </mat-form-field>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <mat-form-field>
-            <input matInput [matDatepicker]="doj" placeholder="DOJ">
-            <mat-datepicker-toggle matSuffix [for]="doj"></mat-datepicker-toggle>
-            <mat-datepicker #doj></mat-datepicker>
-          </mat-form-field>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <mat-form-field>
-            <mat-select placeholder="Referred By">
-              <mat-option value="option">Option</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </td>
-      </tr>
-    </table>
+    <div novalidate [formGroup]="enquiryForm">
+      <table>
+        <tr>
+          <td class="form-group">
+            <mat-form-field>
+              <input matInput placeholder="Firstname" class="form-control" formControlName="firstName" required>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td class="form-group">
+            <mat-form-field>
+              <input matInput placeholder="Lastname" class="form-control" formControlName="lastName" required>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td class="form-group">
+            <mat-form-field>
+              <input matInput placeholder="Email ID" type="email" class="form-control" formControlName="emailId" required>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td class="form-group">
+            <mat-form-field>
+              <input matInput placeholder="Mobile No" class="form-control" formControlName="mobileNo" required>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td class="form-group">
+            <mat-form-field>
+              <input matInput [matDatepicker]="doj" placeholder="DOE" class="form-control" formControlName="doj" required>
+              <mat-datepicker-toggle matSuffix [for]="doj"></mat-datepicker-toggle>
+              <mat-datepicker #doj></mat-datepicker>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td class="form-group">
+            <mat-form-field>
+              <mat-select placeholder="Referred By" class="form-control" formControlName="referredBy" required>
+                <mat-option *ngFor="let employee of _employees" [value]="employee.id">{{employee.firstName+employee.lastName}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
   <div style="text-align: center;">
-    <button mat-fab color="primary">
+    <button mat-fab color="primary" [disabled]="!enquiryForm.valid" (click)="submitEnquiry();" mat-dialog-close>
       <i class="material-icons">done</i>
     </button>
     <button mat-fab color="primary" mat-dialog-close style="margin-left:5%;">

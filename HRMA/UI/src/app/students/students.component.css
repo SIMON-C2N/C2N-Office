@@ -28,3 +28,7 @@
     top: 0;
     background: white;
   }
+
+  .add-batch{
+    display: none;
+  }

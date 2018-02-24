@@ -1,11 +1,16 @@
 package in.c2n.portal.entities;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "student_conversations")
@@ -16,6 +21,7 @@ public class StudentConversations implements java.io.Serializable {
 	private Integer id;
 	private int studentId;
 	private String conversation;
+	private Date postdate;
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -44,6 +50,16 @@ public class StudentConversations implements java.io.Serializable {
 
 	public void setConversation(String conversation) {
 		this.conversation = conversation;
+	}
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "postdate", length = 10)
+	public Date getPostdate() {
+		return this.postdate;
+	}
+
+	public void setPostdate(Date postdate) {
+		this.postdate = postdate;
 	}
 
 }

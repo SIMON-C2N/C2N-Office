@@ -8,14 +8,14 @@
   <mat-table #table [dataSource]="dataSource">
 
     <ng-container matColumnDef="{{col}}" *ngFor="let col of student_columns">
-      <div *ngIf="(col!='add_batch') && (col!='add_conversation') && (col!='view') && (col!='referredBy')">
+      <div *ngIf="(col!='add_batch') && (col!='add_conversation') && (col!='view')">
         <mat-header-cell *matHeaderCellDef> {{getColumnName(col)}} </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row[col]}} </mat-cell>
+        <mat-cell *matCellDef="let row"> {{(col=='isLead')?(row[col]==1?'Y':'N'):row[col]}} </mat-cell>
       </div>
       <div *ngIf="col=='add_batch'">
         <mat-header-cell *matHeaderCellDef>{{getColumnName(col)}}</mat-header-cell>
         <mat-cell *matCellDef="let row">
-          <i class="material-icons" (click)="addBatch(row);" matTooltip="add batch">add</i>
+          <i class="material-icons" (click)="addBatch(row);" matTooltip="add batch" [ngClass]="((row['isLead']==0)?'add-batch':'')">add</i>
         </mat-cell>
       </div>
       <div *ngIf="col=='add_conversation'">

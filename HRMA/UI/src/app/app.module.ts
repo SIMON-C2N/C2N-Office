@@ -55,6 +55,7 @@ import { ViewComponent } from './students/conversations/dialouges/view/view.comp
 
 
 import { StudentService } from "./students/services/student.service";
+import { EmployeesService } from './employees/services/employees.service';
 
 const routes: Routes = [{ path: '', component: StudentsComponent },
 { path: 'students', component: StudentsComponent },
@@ -116,7 +117,7 @@ const routes: Routes = [{ path: '', component: StudentsComponent },
     RouterModule,
     FlexLayoutModule
   ],
-  providers: [StudentService],
+  providers: [StudentService, EmployeesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
