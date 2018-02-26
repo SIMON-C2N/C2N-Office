@@ -2,9 +2,12 @@
 <div>
   <mat-dialog-content>
     <mat-list>
-      <div *ngFor="let row of [1,2,3,4,5];let i=index;">
-        <mat-list-item>Item {{i}}</mat-list-item>
+      <div *ngFor="let row of conversations">
+        <mat-list-item>{{row}}</mat-list-item>
         <mat-divider></mat-divider>
+      </div>
+      <div *ngIf="conversations?.length==0">
+        <mat-list-item>No conversations found.</mat-list-item>
       </div>
     </mat-list>
   </mat-dialog-content>

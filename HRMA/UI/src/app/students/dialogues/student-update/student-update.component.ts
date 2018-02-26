@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MatTableDataSource } from '@angular/material';
+import { StudentService } from '../../services/student.service';
 
 @Component({
   selector: 'app-student-update',
@@ -9,13 +10,17 @@ import { MatTableDataSource } from '@angular/material';
 })
 export class StudentUpdateComponent implements OnInit {
 
-  course_columns = ["id", "course_name", "course_duration", "course_starting_date", "timings", "no_of_days", "no_of_absences", "finalizedFee", "paidAmount"];
+  course_columns = ["id", "courseName", "duration", "startDate", "timings", "noOfAbsences", "finalizedFee", "paidAmount", "isCompleted"];
 
-  dataSource = new MatTableDataSource();
+  dataSource = new MatTableDataSource([]);
 
   constructor(public dialogRef: MatDialogRef<StudentUpdateComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+    @Inject(MAT_DIALOG_DATA) public data: any, public _studentService: StudentService) {
     // this.dialogRef.disableClose = true;
+  }
+
+  ngOnInit() {
+    this.findAllBatchesOfStudent(this.data.id);
   }
 
   getColumnName(columnKey: string): string {
@@ -24,22 +29,19 @@ export class StudentUpdateComponent implements OnInit {
       case "id":
         columnName = "#";
         break;
-      case "course_name":
+      case "courseName":
         columnName = "Course name";
         break;
-      case "course_duration":
+      case "duration":
         columnName = "Course duration";
         break;
-      case "course_starting_date":
+      case "startDate":
         columnName = "Course starting date";
         break;
       case "timings":
         columnName = "Timings";
         break;
-      case "no_of_days":
-        columnName = "No. of days";
-        break;
-      case "no_of_absences":
+      case "noOfAbsences":
         columnName = "No. of absences";
         break;
       case "finalizedFee":
@@ -48,11 +50,31 @@ export class StudentUpdateComponent implements OnInit {
       case "paidAmount":
         columnName = "Paid amount";
         break;
+      case "isCompleted":
+        columnName = "is Completed ?";
+        break;
     }
     return columnName;
   }
 
-  ngOnInit() {
+
+  findAllBatchesOfStudent(studentId: number) {
+    this._studentService.findAllBatchesByStudentId(studentId).subscribe(response => {
+      this.dataSource = new MatTableDataSource(response);
+    });
   }
 
+}
+
+export interface StudentBatches {
+  id: number,
+  studentId: number,
+  courseName: string,
+  duration: number,
+  startDate: string,
+  timings: string,
+  noOfAbsences: number,
+  finalizedFee: number,
+  paidAmount: number;
+  isCompleted: number
 }

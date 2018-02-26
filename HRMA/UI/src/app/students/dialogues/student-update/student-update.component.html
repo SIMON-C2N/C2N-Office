@@ -48,9 +48,7 @@
               </td>
               <td>
                 <mat-form-field>
-                  <mat-select placeholder="Referred By">
-                    <mat-option value="option">Option</mat-option>
-                  </mat-select>
+                  <input matInput placeholder="Referred By" value="{{data.referrerName}}">
                 </mat-form-field>
               </td>
             </tr>
@@ -58,13 +56,13 @@
             </tr>
             <tr>
               <td>
-                <mat-checkbox color="primary">Is Lead ?</mat-checkbox>
+                <mat-checkbox color="primary" [checked]="(data.isLead==1?true:false)">Is Lead ?</mat-checkbox>
               </td>
             </tr>
           </table>
         </td>
         <td>
-          <mat-table #table [dataSource]="dataSource">
+          <mat-table #table [dataSource]="dataSource" id="tabularView">
 
             <ng-container matColumnDef="{{col}}" *ngFor="let col of course_columns">
               <mat-header-cell *matHeaderCellDef> {{getColumnName(col)}} </mat-header-cell>

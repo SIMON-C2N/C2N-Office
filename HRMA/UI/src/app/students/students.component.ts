@@ -16,6 +16,7 @@ import { EmployeesService } from '../employees/services/employees.service';
 })
 export class StudentsComponent implements OnInit {
 
+  searchKeyword;
   displayedColumns = ['position', 'name', 'weight', 'symbol'];
   student_columns = ["id", "firstName", "lastName", "mobileNo", "emailId", "doj", "isLead", "referrerName", "add_batch", "add_conversation", "view"];
   dataSource = new MatTableDataSource<Student>([]);;
@@ -41,6 +42,20 @@ export class StudentsComponent implements OnInit {
     this._employeeService.findAll().subscribe(response => {
       console.log(response);
     });
+  }
+
+  searchAll() {
+    if (this.searchKeyword != undefined && this.searchKeyword.length > 3) {
+      this._studentService.searchAllByKeyword(this.searchKeyword)
+        .subscribe(
+          response => {
+            if (response != undefined && response.length != 0) {
+              this.dataSource = new MatTableDataSource<Student>(response);
+            }
+          });
+    } else if (this.searchKeyword != undefined && this.searchKeyword.length == 0) {
+      this.findAllStudentsWithReferrer();
+    }
   }
 
   getColumnName(columnKey: string): string {

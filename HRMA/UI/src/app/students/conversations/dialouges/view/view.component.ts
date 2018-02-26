@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { StudentService } from '../../../services/student.service';
 
 @Component({
   selector: 'app-view',
@@ -8,10 +9,18 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class ViewComponent implements OnInit {
 
-    constructor(public dialogRef: MatDialogRef<ViewComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+  conversations = [];
+
+  constructor(public dialogRef: MatDialogRef<ViewComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any, public _studentService: StudentService) { }
 
   ngOnInit() {
+    this.loadConversationsByStudentId(this.data.id);
   }
 
+  loadConversationsByStudentId(studentId: number) {
+    this._studentService.findAllConversationsByStudentId(studentId).subscribe(response => {
+      this.conversations = response;
+    });
+  }
 }

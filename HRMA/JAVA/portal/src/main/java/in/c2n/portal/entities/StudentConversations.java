@@ -1,12 +1,11 @@
 package in.c2n.portal.entities;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -24,7 +23,7 @@ public class StudentConversations implements java.io.Serializable {
 	private Date postdate;
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;
