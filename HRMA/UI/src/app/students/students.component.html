@@ -36,7 +36,8 @@
     <mat-row *matRowDef="let row; columns: student_columns;"></mat-row>
   </mat-table>
 </div>
-<mat-paginator style="padding-right:10%;" #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+<mat-paginator style="padding-right:10%;" #paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+  [pageIndex]="pageIndex" (page)="pageEvent = $event;onPaginateChange($event)">
 </mat-paginator>
 <div class="addNewEnquiry">
   <button mat-fab color="primary" (click)="openEnquiryForm();">

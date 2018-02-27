@@ -18,5 +18,6 @@
     <mat-row *matRowDef="let row; columns: student_columns;" (click)="openConversations(row);"></mat-row>
   </mat-table>
 </div>
-<mat-paginator style="padding-right:10%;" #paginator [pageSize]="pageSize" [length]="length">
+<mat-paginator style="padding-right:10%;" #paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+  [pageIndex]="pageIndex" (page)="pageEvent = $event;onPaginateChange($event)">
 </mat-paginator>

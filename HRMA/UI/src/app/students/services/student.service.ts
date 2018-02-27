@@ -9,8 +9,8 @@ export class StudentService {
 
     constructor(private http: HttpClient) { }
 
-    findAllByReferrers(): Observable<any> {
-        return this.http.get(environment.url + "students");
+    findAllByReferrers(value: any): Observable<any> {
+        return this.http.get(environment.url + "students" + "?size=" + value.pageSize + "&page=" + value.pageIndex);
     }
 
     addNewEnquiry(newEnquiry: any): Observable<any> {

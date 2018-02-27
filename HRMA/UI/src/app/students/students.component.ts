@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatTable } from '@angular/material';
 import { MatTableDataSource } from '@angular/material';
+
+import { PageEvent } from '@angular/material';
+
 import { EnquiryComponent } from './dialogues/enquiry/enquiry.component';
 import { BatchComponent } from "./dialogues/batch/batch.component";
 import { ConversationComponent } from "./dialogues/conversation/conversation.component";
@@ -21,18 +24,45 @@ export class StudentsComponent implements OnInit {
   student_columns = ["id", "firstName", "lastName", "mobileNo", "emailId", "doj", "isLead", "referrerName", "add_batch", "add_conversation", "view"];
   dataSource = new MatTableDataSource<Student>([]);;
 
+
+  //Pagination
+  length;
+  pageSize;
+  pageSizeOptions = [100, 500, 1000];
+  pageIndex;
+
+  // MatPaginator Output
+  pageEvent: PageEvent;
+
   constructor(public dialog: MatDialog, public _studentService: StudentService, public _employeeService: EmployeesService) { }
 
   ngOnInit() {
-    this.findAllStudentsWithReferrer();
+    this.findAllStudentsWithReferrer(undefined, undefined);
   }
 
-  findAllStudentsWithReferrer() {
-    this._studentService.findAllByReferrers()
+  findAllStudentsWithReferrer(pageIndex, pageSize) {
+
+    this.dataSource = null;
+
+    let value = {};
+
+    if (pageIndex != undefined && pageSize != undefined) {
+      value["pageIndex"] = pageIndex;
+      value["pageSize"] = pageSize;
+    } else {
+      value["pageIndex"] = 0;
+      value["pageSize"] = 100;
+    }
+
+    this._studentService.findAllByReferrers(value)
       .subscribe(
         response => {
           if (response != undefined && response.length != 0) {
-            this.dataSource = new MatTableDataSource<Student>(response);
+            this.dataSource = new MatTableDataSource<Student>(response.content);
+
+            this.length = response.totalElements;
+            this.pageIndex = response.number;
+            this.pageSize = response.size;
           }
         });
 
@@ -54,8 +84,12 @@ export class StudentsComponent implements OnInit {
             }
           });
     } else if (this.searchKeyword != undefined && this.searchKeyword.length == 0) {
-      this.findAllStudentsWithReferrer();
+      this.findAllStudentsWithReferrer(undefined,undefined);
     }
+  }
+
+  onPaginateChange(event) {
+    this.findAllStudentsWithReferrer(event.pageIndex, event.pageSize);
   }
 
   getColumnName(columnKey: string): string {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { MatTableDataSource } from '@angular/material';
+import { PageEvent } from '@angular/material';
 import { ViewComponent } from './dialouges/view/view.component';
 import { StudentService } from '../services/student.service';
 
@@ -16,20 +17,46 @@ export class ConversationsComponent implements OnInit {
   dataSource = new MatTableDataSource([]);
 
   //Pagination
-  // pageSizeOptions=[50, 100, 250, 100];
-  pageSize=50;
-  length=1;
+  length;
+  pageSize;
+  pageSizeOptions = [100, 500, 1000];
+  pageIndex;
+
+  // MatPaginator Output
+  pageEvent: PageEvent;
 
   constructor(public dialog: MatDialog, public _studentService: StudentService) { }
 
   ngOnInit() {
-    this.loadStudents();
+    this.loadStudents(undefined, undefined);
   }
 
-  loadStudents() {
-    this._studentService.findAllByReferrers().subscribe(response => {
-      this.dataSource = new MatTableDataSource(response);
+  loadStudents(pageIndex, pageSize) {
+
+    this.dataSource = null;
+
+    let value = {};
+
+    if (pageIndex != undefined && pageSize != undefined) {
+      value["pageIndex"] = pageIndex;
+      value["pageSize"] = pageSize;
+    } else {
+      value["pageIndex"] = 0;
+      value["pageSize"] = 100;
+    }
+
+    this._studentService.findAllByReferrers(value).subscribe(response => {
+      this.dataSource = new MatTableDataSource(response.content);
+
+      this.length = response.totalElements;
+      this.pageIndex = response.number;
+      this.pageSize = response.size;
+
     });
+  }
+
+  onPaginateChange(event) {
+    this.loadStudents(event.pageIndex, event.pageSize);
   }
 
   getColumnName(columnKey: string): string {
@@ -79,7 +106,7 @@ export class ConversationsComponent implements OnInit {
             }
           });
     } else if (this.searchKeyword != undefined && this.searchKeyword.length == 0) {
-      this.loadStudents();
+      this.loadStudents(undefined,undefined);
     }
   }
 }
