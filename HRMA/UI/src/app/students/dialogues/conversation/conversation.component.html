@@ -42,7 +42,7 @@
       <br/>
       <tr>
         <td class="form-group">
-          <mat-checkbox color="primary" class="form-control" formControlName="isLead">Is Lead ?</mat-checkbox>
+          <mat-checkbox color="primary" class="form-control" formControlName="isLead" [disabled]="conversationForm.value.isEnabled==true">Is Lead ?</mat-checkbox>
         </td>
       </tr>
       <br/>
